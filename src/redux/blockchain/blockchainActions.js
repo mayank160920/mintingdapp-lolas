@@ -61,14 +61,25 @@ export const connect = () => {
           method: "net_version",
         });
         if (networkId == CONFIG.NETWORK.ID) {
+          console.log(abi.smartContractAbi);
           const SmartContractObj = new Web3EthContract(
-            abi,
+            abi.smartContractAbi,
             CONFIG.CONTRACT_ADDRESS
+          );
+          const DegenrabbitSmartContract = new Web3EthContract(
+            abi.degenrabbitSmartContractAbi,
+            CONFIG.DEGENRABBITS_CONTRACT_ADDRESS
+          );
+          const CustodySmartContract = new Web3EthContract(
+            abi.custodySmartContractAbi,
+            CONFIG.CUSTODY_CONTRACT_ADDRESS
           );
           dispatch(
             connectSuccess({
               account: accounts[0],
               smartContract: SmartContractObj,
+              degenrabbitSmartContract: DegenrabbitSmartContract,
+              custodySmartContract: CustodySmartContract,
               web3: web3,
             })
           );
