@@ -11,20 +11,22 @@ function NftContainer(props) {
         let _nftIds = [];
 
         const result = await blockchain.degenrabbitSmartContract.methods.walletOfOwner(
-            // blockchain.account
-            "0xCF4F33773bd0b5F89271143062EEF0C6Dd408063"
+            blockchain.account
+            // "0xCF4F33773bd0b5F89271143062EEF0C6Dd408063"
         ).call();
+        // console.log(result);
         if (result.length != 0) {
-            _nftIds = _nftIds.concat(result.slice(1080));
+            _nftIds = _nftIds.concat(result.slice(1050));
         }
 
         const tokensUnderCustody = await blockchain.custodySmartContract.methods.getCustodiedTokensForOwner(
             "0x8E7c434B248d49D873D0F8448E0FcEc895b1b92D",
-            "0x972217838ee9849662cd63cd0d0fcafa09eb25f4"
-            // blockchain.account
+            // "0x972217838ee9849662cd63cd0d0fcafa09eb25f4"
+            blockchain.account
         ).call();
+        // console.log(tokensUnderCustody);
         if (tokensUnderCustody.length != 0) {
-            // _nftIds = _nftIds.concat(tokensUnderCustody);            
+            _nftIds = _nftIds.concat(tokensUnderCustody);            
         }
 
         setNftIds(_nftIds);
